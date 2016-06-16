@@ -2180,6 +2180,7 @@ NFC += nfcee_access.xml
 NFC += nfc-nci.conf
 NFC += hardfault.cfg
 NFC += com.android.nfc.helper.xml
+NFC += NfcNci
 
 #OEM_SERVICES - system monitor shutdown modules
 OEM_SERVICES := libSubSystemShutdown
@@ -3083,6 +3084,39 @@ PRODUCT_PACKAGES += $(WLAN)
 PRODUCT_PACKAGES += $(BT_TEL)
 PRODUCT_PACKAGES += $(LOG_SYSTEM)
 PRODUCT_PACKAGES += $(DISPLAY_DPPS)
+
+PRODUCT_PACKAGES += \
+            libnfc-nci \
+            libnfc_nci_jni \
+            nfc_nci_pn547.msm8974 \
+            NfcNci \
+            Tag \
+            com.android.nfc_extras \
+            libpn548ad_fw.so \
+            TSM2Service \
+            NfceeService_65T \
+            libese-spi \
+            libp61-jcop-kit \
+            nfc_nci.pn54x.default \
+            SmartcardService \
+            libassd \
+            ltsmclient \
+            EseSpi \
+            libese_spi_jni \
+            org.simalliance.openmobileapi
+PRODUCT_COPY_FILES += \
+        external/libese-spi/libese-nxp-P61.conf:system/etc/libese-nxp.conf \
+        frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+        frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+        frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+        frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+        packages/apps/Nfc/nfc_config/nfc_66T/libnfc-nxp_for_19.2M.conf:system/etc/libnfc-nxp.conf \
+        packages/apps/Nfc/nfc_config/nfc_66T/libnfc-nxp_for_19.2M_dc45.conf:system/etc/libnfc-nxp_dc45.conf \
+        packages/apps/Nfc/nfc_config/nfc_66T/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+        packages/apps/Nfc/nfc_config/nfc_66T/nfcee_access.xml:system/etc/nfcee_access.xml \
+        packages/apps/Nfc/nfc_config/nfc_66T/nfcscc_access.xml:system/etc/nfcscc_access.xml \
+        packages/apps/Nfc/nfc_config/nfc_66T/nfcse_access.xml:system/etc/nfcse_access.xml \
+        packages/apps/SmartCardService/openmobileapi/org.simalliance.openmobileapi.xml:system/etc/permissions/org.simalliance.openmobileapi.xml
 
 # Each line here corresponds to a debug LOCAL_MODULE built by
 # Android.mk(s) in the proprietary projects. Where project

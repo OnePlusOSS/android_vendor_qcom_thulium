@@ -35,6 +35,7 @@ on early-init
 
 on post-fs
     export LD_PRELOAD libNimsWrap.so
+    mkdir /data/nfc
 
 on fs
     wait /dev/block/bootdevice
@@ -90,6 +91,9 @@ on boot
     chown system drmrpc /sys/devices/soc/75ba000.i2c/i2c-12/12-004a/secure_touch
     write /proc/sys/kernel/sched_boost 1
     write /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input0/update_fw 1
+    setprop ro.nfc.port "I2C"
+    chmod 0660 /dev/pn544
+    chown nfc nfc /dev/pn544
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
