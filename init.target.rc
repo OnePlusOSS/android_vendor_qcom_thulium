@@ -94,6 +94,8 @@ on boot
     setprop ro.nfc.port "I2C"
     chmod 0660 /dev/pn544
     chown nfc nfc /dev/pn544
+    chmod 0666 /dev/dash/
+    restorecon  /dev/dash
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -405,6 +407,12 @@ service mdtpd /system/vendor/bin/mdtpd
    user root
    group system radio drmrpc
 
+service dashd /sbin/dashd
+    class core
+    critical
+    seclabel u:r:dashd:s0
+    group root system
+
 on charger
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
@@ -412,3 +420,4 @@ on charger
     wait /dev/block/bootdevice
     mount_all charger.fstab.qcom
     start hvdcp_opti
+    start dashd

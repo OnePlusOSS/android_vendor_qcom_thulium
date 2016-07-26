@@ -1996,6 +1996,9 @@ MM_STILL += libmmqjpegdma
 MM_STILL += qjpeg-dma-test
 MM_STILL += libqomx_jpegenc_pipe
 
+#DASHD
+DASHD := dashd
+
 #MM_VIDEO
 MM_VIDEO := ast-mm-vdec-omx-test7k
 MM_VIDEO += iv_h264_dec_lib
@@ -2975,6 +2978,7 @@ PRODUCT_PACKAGES += $(FASTMMI)
 #PRODUCT_PACKAGES += $(FCCUTIL)
 #endif /* VENDOR_EDIT */
 PRODUCT_PACKAGES += $(FINGERPRINT)
+PRODUCT_PACKAGES += $(DASHD)
 PRODUCT_PACKAGES += $(FLASH)
 PRODUCT_PACKAGES += $(FM)
 PRODUCT_PACKAGES += $(FOTA)
