@@ -77,6 +77,12 @@ on post-fs-data
     mkdir /data/misc/qvop 0660 system system
     mkdir /data/misc/qvr 0770 system system
     mkdir /data/misc/audio_pp 0771 media audio
+    #fingerint, changhua add for fp debug image usage,feature default off
+    mkdir /data/fpc_images 0770 system system
+    mkdir /data/fpc_images/verify 0770 system system
+    mkdir /data/fpc_images/enroll 0770 system system
+    mkdir /data/fpc 0770 system system
+    mkdir /data/coredump  0777 system system
 
 on property:init.svc.bootanim=running
     write /sys/class/leds/wled/brightness 4095
@@ -92,6 +98,19 @@ on boot
     write /proc/sys/kernel/sched_boost 1
     write /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input0/update_fw 1
 
+    chmod 0664 /sys/devices/soc/soc:fpc_fpc1020/irq
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/irq
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/report_home
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/report_home
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/update_info
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/update_info
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/screen_state
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/screen_state
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/hw_reset
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/hw_reset
+    #chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/wakeup_enable
+    #chown system system /sys/devices/soc/soc:fpc_fpc1020/wakeup_enable
+
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
@@ -103,6 +122,11 @@ service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
     group system
+
+service ifaadaemon /system/bin/ifaadaemon
+class late_start
+user system
+group system
 
 service qfp-daemon /system/bin/qfp-daemon
     class late_start
