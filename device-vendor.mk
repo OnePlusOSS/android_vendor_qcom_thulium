@@ -4149,6 +4149,28 @@ CSK += CskServer
 CSM := Csm
 CSM += libcsm_data
 
+#DASH
+DASH := dashd
+
+#NFC
+NFC := NfcNci
+NFC += Tag
+NFC += libnfc-nci
+NFC += libnfc_nci_jni
+NFC += com.android.nfc_extras
+NFC += libpn548ad_fw.so
+NFC += TSM2Service
+NFC += NfceeService_65T
+NFC += libese-spi
+NFC += libp61-jcop-kit
+NFC += nfc_nci.pn54x.default
+NFC += SmartcardService
+NFC += libassd
+NFC += ltsmclient
+NFC += libese_spi_jni
+NFC += org.simalliance.openmobileapi
+NFC += org.simalliance.openmobileapi.xml
+
 PRODUCT_PACKAGES += $(ADC)
 PRODUCT_PACKAGES += $(ADSPRPC)
 PRODUCT_PACKAGES += $(ALLJOYN)
@@ -4307,6 +4329,9 @@ PRODUCT_PACKAGES += $(QRD_CALENDAR_APPS)
 ifneq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_PACKAGES += $(CSM)
 endif
+
+#chenyihuang@oneplus,2017/01/10, add nfc
+PRODUCT_PACKAGES += $(NFC)
 #endif /* VENDOR_EDIT */
 
 # Each line here corresponds to a debug LOCAL_MODULE built by
