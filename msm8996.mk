@@ -115,6 +115,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/qcom/msm8996/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
 
+PRODUCT_COPY_FILES += \
+    device/qcom/msm8996/tfa98xx.cnt:system/etc/firmware/tfa98xx.cnt
+
 PRODUCT_PROPERTY_OVERRIDES += \
     camera.disable_zsl_mode=1
 
@@ -142,3 +145,6 @@ else
     PRODUCT_DEFAULT_PROPERTY_OVERRIDES+= \
         ro.logdumpd.enabled=0
 endif
+
+SDCLANG_PATH := device/qcom/common/llvm-arm-toolchain-ship/3.8/bin
+$(call inherit-product-if-exists, device/qcom/msm8996/device-vendor.mk)
