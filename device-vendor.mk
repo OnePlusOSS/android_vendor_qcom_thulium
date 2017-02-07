@@ -2789,6 +2789,9 @@ MM_CAMERA += libts_detected_face_hal.so
 MM_CAMERA += libts_detected_face_jni.so
 MM_CAMERA += libts_face_beautify_hal.so
 MM_CAMERA += libts_face_beautify_jni.so
+MM_CAMERA += libmmcamera_interface
+MM_CAMERA += libmmjpeg_interface
+MM_CAMERA += camera.msm8996
 
 #MM_CORE
 MM_CORE := CABLService
