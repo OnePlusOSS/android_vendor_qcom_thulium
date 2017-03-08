@@ -106,6 +106,9 @@ ro.bluetooth.emb_wp_mode=true
 #snapdragon value add features
 #
 
+#ro.qc.sdk.audio.fluencetype=none
+ro.qc.sdk.audio.fluencetype=fluence
+
 #system prop for RmNet Data
 persist.rmnet.data.enable=true
 persist.data.wda.enable=true
