@@ -122,6 +122,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/qcom/msm8996/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
 
+PRODUCT_COPY_FILES += \
+    device/qcom/msm8996/tfa98xx.cnt:system/etc/firmware/tfa98xx.cnt
+
 PRODUCT_PROPERTY_OVERRIDES += \
     camera.disable_zsl_mode=1
 
