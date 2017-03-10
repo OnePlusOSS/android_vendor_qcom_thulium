@@ -99,6 +99,11 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
 
+#start remosaic daemon
+service remosaic_daemon /system/bin/remosaic_daemon
+    class late_start
+    user camera
+
 #fingerprint service
 service fingerprintd /system/bin/fingerprintd
     class late_start
