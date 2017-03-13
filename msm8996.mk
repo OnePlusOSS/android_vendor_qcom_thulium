@@ -163,5 +163,18 @@ PRODUCT_LOCALES += th_TH vi_VN tl_PH hi_IN ar_EG ru_RU tr_TR pt_BR bn_IN mr_IN t
         in_ID my_MM km_KH sw_KE uk_UA pl_PL sr_RS sl_SI fa_IR kn_IN ml_IN ur_IN gu_IN or_IN
 
 SDCLANG_PATH := device/qcom/common/llvm-arm-toolchain-ship/3.8/bin
+
+PRODUCT_COPY_FILES += \
+        frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+        frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+        frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+        frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+        packages/apps/Nfc/nfc_config/nfc_66T/libnfc-nxp_for_19.2M.conf:system/etc/libnfc-nxp.conf \
+        packages/apps/Nfc/nfc_config/nfc_66T/libnfc-nxp_for_19.2M_dc45.conf:system/etc/libnfc-nxp_dc45.conf \
+        packages/apps/Nfc/nfc_config/nfc_66T/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+        packages/apps/Nfc/nfc_config/nfc_66T/nfcee_access.xml:system/etc/nfcee_access.xml \
+        packages/apps/Nfc/nfc_config/nfc_66T/nfcscc_access.xml:system/etc/nfcscc_access.xml \
+        packages/apps/Nfc/nfc_config/nfc_66T/nfcse_access.xml:system/etc/nfcse_access.xml \
+        frameworks/native/data/etc/android.hardware.nfc.hcef.xml:system/etc/permissions/android.hardware.nfc.hcef.xml
 $(call inherit-product-if-exists, vendor/oneplus/prebuilt.mk)
 $(call inherit-product-if-exists, device/qcom/msm8996/device-vendor.mk)
