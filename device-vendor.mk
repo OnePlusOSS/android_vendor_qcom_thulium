@@ -4149,8 +4149,8 @@ CSK += CskServer
 CSM := Csm
 CSM += libcsm_data
 
-#DASH
-DASH := dashd
+#DASHD
+DASHD := dashd
 
 #NFC
 NFC := NfcNci
