@@ -11,7 +11,7 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # Default vendor configuration.
 ifeq ($(ENABLE_VENDOR_IMAGE),)
-ENABLE_VENDOR_IMAGE := true
+ENABLE_VENDOR_IMAGE := false
 endif
 
 # Default A/B configuration.
@@ -93,13 +93,16 @@ PRODUCT_BOOT_JARS += telephony-ext
 
 PRODUCT_PACKAGES += telephony-ext
 
+PRODUCT_BOOT_JARS += qcnvitems
+PRODUCT_BOOT_JARS += qcrilhook
+
 ifneq ($(strip $(QCPATH)),)
-PRODUCT_BOOT_JARS += WfdCommon
+#PRODUCT_BOOT_JARS += WfdCommon
 #PRODUCT_BOOT_JARS += com.qti.dpmframework
 #PRODUCT_BOOT_JARS += dpmapi
 #PRODUCT_BOOT_JARS += com.qti.location.sdk
 #Android oem shutdown hook
-PRODUCT_BOOT_JARS += oem-services
+#PRODUCT_BOOT_JARS += oem-services
 endif
 
 ifeq ($(strip $(BOARD_HAVE_QCOM_FM)),true)
@@ -191,10 +194,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.relative_humidity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.relative_humidity.xml \
     frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.hifi_sensors.xml
 
-# Fingerprint feature
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
-
 # dm-verity configuration
 PRODUCT_SUPPORTS_VERITY := true
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/bootdevice/by-name/system
@@ -230,9 +229,9 @@ PRODUCT_PACKAGES += android.hardware.health@1.0-impl \
                    android.hardware.health@1.0-service \
                    libhealthd.msm
 
-PRODUCT_FULL_TREBLE_OVERRIDE := true
+PRODUCT_FULL_TREBLE_OVERRIDE := false
 
-PRODUCT_VENDOR_MOVE_ENABLED := true
+PRODUCT_VENDOR_MOVE_ENABLED := false
 
 #for android_filesystem_config.h
 PRODUCT_PACKAGES += \
@@ -312,3 +311,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #system prop for wipower support
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bluetooth.wipower=true
+
+PRODUCT_PACKAGES += dashd
+
+#for fingerprint
+PRODUCT_PACKAGES += \
+     android.hardware.gatekeeper@1.0-impl \
+     android.hardware.gatekeeper@1.0-service \
+     android.hardware.biometrics.fingerprint@2.1-service
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
+
+$(call inherit-product-if-exists, vendor/oneplus/prebuilt.mk)
+$(call inherit-product-if-exists, device/qcom/msm8996/device-vendor.mk)

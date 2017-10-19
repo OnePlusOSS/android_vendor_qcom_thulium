@@ -67,6 +67,10 @@ on post-fs-data
     mkdir /data/misc/tloc/ 0700 system drmrpc
     mkdir /data/misc/qvr 0770 system system
     mkdir /data/misc/audio_pp 0771 media audio
+    mkdir /data/fpc_images 0770 system system
+    mkdir /data/fpc_images/verify 0770 system system
+    mkdir /data/fpc_images/enroll 0770 system system
+    mkdir /data/fpc 0770 system system
 
    # Add a cpuset for the camera daemon
    # We want all cores for camera
@@ -86,6 +90,17 @@ on property:init.svc.bootanim=running
 on boot
     start rmt_storage
     start rfs_access
+    chmod 0664 /sys/devices/soc/soc:fpc_fpc1020/irq
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/irq
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/report_home
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/report_home
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/update_info
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/update_info
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/screen_state
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/screen_state
+    chmod 0660 /sys/devices/soc/soc:fpc_fpc1020/hw_reset
+    chown system system /sys/devices/soc/soc:fpc_fpc1020/hw_reset
+    chmod 0666 /dev/qseecom
 # access permission for secure touch
     chmod 0660 /sys/devices/soc/75ba000.i2c/i2c-12/12-004a/secure_touch_enable
     chmod 0440 /sys/devices/soc/75ba000.i2c/i2c-12/12-004a/secure_touch
@@ -94,33 +109,34 @@ on boot
     write /proc/sys/kernel/sched_boost 1
     write /sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input0/update_fw 1
 
+    #NFC, ruanbanmao add for 15801 nfc. 2015/10/19
+    setprop ro.nfc.port "I2C"
+    chmod 0666 /dev/pn544
+    chown nfc nfc /dev/pn544
+
+    setprop persist.vendor.camera.eis.enable 0
+
 #start camera server as daemon
 service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
 
-#fingerprint service
-service fingerprintd /system/vendor/bin/fingerprintd
-    class late_start
-    user system
-    group system
-
 service qfp-daemon /system/vendor/bin/qfp-daemon
     class late_start
     user system
     group system drmrpc diag input
-
-service fps_hal /system/vendor/bin/fingerprint.qcom
-    class late_start
-    user system
-    group system input
 
 service qvrd /system/vendor/bin/qvrservice
     class late_start
     user system
     group system camera graphics
     socket qvrservice stream 0666 system system
+
+service ifaadaemon /system/bin/ifaadaemon
+    class late_start
+    user system
+    group system
 
 #Start up peripheral manager
 service per_mgr /vendor/bin/pm-service
@@ -398,7 +414,7 @@ service energy-awareness /system/vendor/bin/energy-awareness
 service hvdcp_opti /system/vendor/bin/hvdcp_opti
     class main
     user root
-    group root
+    group system wakelock
 
 service mdtpd /system/vendor/bin/mdtpd
    class late_start
